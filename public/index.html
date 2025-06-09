@@ -23,7 +23,7 @@
         --text-primary: #f8fafc; /* Slate 50 */
         --text-secondary: #cbd5e1; /* Slate 300 */
         --bg-primary: #0f172a; /* Slate 900 */
-        --bg-secondary: #1e293b; /* Slate 800 */
+        --bg-secondary: #18325c; /* Slate 800 */
         --bg-card: rgba(30, 41, 59, 0.7); /* Slate 800 with transparency */
         --border: rgba(59, 130, 246, 0.3); /* Primary with transparency */
         --glass-bg: rgba(255, 255, 255, 0.08); /* More subtle glass background */
@@ -72,7 +72,6 @@
 
       .card-hover {
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        backdrop-filter: blur(10px);
         border: 1px solid var(--border);
       }
 
@@ -172,9 +171,9 @@
 
       .glass {
         background: var(--glass-bg); /* Use new variable */
-        backdrop-filter: blur(15px); /* Increased blur for more depth */
         border: 1px solid var(--glass-border); /* Use new variable for distinction */
         box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); /* Added subtle shadow */
+        transition-duration: 300ms;
       }
 
       @media (max-width: 768px) {
@@ -325,7 +324,6 @@
         max-width: 42rem; /* max-w-2xl */
         width: 100%;
         position: relative;
-        backdrop-filter: blur(10px); /* glass */
         border: 1px solid var(--glass-border); /* glass */
         transform: translateY(20px);
         transition: transform 0.3s ease;
@@ -413,7 +411,7 @@
           <!-- Portfolio Card -->
           <div class="card-hover bg-gray-800 rounded-2xl p-6 glass">
             <div class="h-48 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl mb-6 flex items-center justify-center">
-              <i class="fas fa-laptop-code text-6xl text-white"></i>
+             <img width="96" height="96" src="https://img.icons8.com/arcade/64/web-design.png" alt="web-design"/>
             </div>
             <h3 class="text-xl font-semibold mb-3">Portfolio Showcase</h3>
             <p class="text-gray-400 mb-6">A sleek, responsive portfolio built with modern web technologies and enhanced with AI-driven features.</p>
@@ -425,15 +423,15 @@
             <a href="https://drew-shadcn.netlify.app" target="_blank" class="btn-primary block text-center py-3 rounded-xl font-medium relative">
               View Project
             </a>
-            <button class="btn-secondary block w-full text-center py-3 rounded-xl font-medium mt-4" data-project="portfolio">View Details</button>
+            <button class="btn-secondary block w-full text-center py-3 rounded-xl font-medium mt-4 border-blue-500 border-2 hover:bg-blue-600/30 transition-all duration-300" data-project="portfolio">View Details</button>
           </div>
 
           <!-- Gemini AI Chatbot Card -->
           <div class="card-hover bg-gray-800 rounded-2xl p-6 glass">
             <div class="h-48 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl mb-6 flex items-center justify-center">
-              <svg class="w-16 h-16 text-white" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"/>
-              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 48 48">
+<linearGradient id="ZsloVEqqSeKFAYphLYdPya_ij6f4GUUwLE8_gr1" x1=".029" x2="48.667" y1="40.428" y2="9.662" gradientUnits="userSpaceOnUse"><stop offset=".002" stop-color="#9c55d4"></stop><stop offset=".003" stop-color="#ff61d3"></stop><stop offset=".075" stop-color="#f760d6"></stop><stop offset=".19" stop-color="#e05cde"></stop><stop offset=".333" stop-color="#ba56ec"></stop><stop offset=".497" stop-color="#874eff"></stop><stop offset=".499" stop-color="#864eff"></stop><stop offset=".506" stop-color="#8451ff"></stop><stop offset=".678" stop-color="#4f90ff"></stop><stop offset=".824" stop-color="#28bfff"></stop><stop offset=".936" stop-color="#10dbff"></stop><stop offset="1" stop-color="#07e6ff"></stop></linearGradient><path fill="url(#ZsloVEqqSeKFAYphLYdPya_ij6f4GUUwLE8_gr1)" d="M46.332,23.147l-2.016-0.999C42.852,16.838,39.115,11.762,34,8.762V7.781	c0-0.459-0.312-0.859-0.757-0.97L27.94,5.485C26.652,5.163,25.328,5,24,5s-2.652,0.163-3.94,0.485l-5.302,1.326	C14.312,6.922,14,7.322,14,7.781v0.982c-5.115,2.999-8.852,8.076-10.316,13.385l-2.016,0.999C0.646,23.653,0,24.695,0,25.835v1.969	c0,0.222,0.025,0.444,0.074,0.66l1.222,5.416C1.708,35.705,3.328,37,5.198,37h1.711c3.617,3.796,9.557,6,17.092,6	s13.475-2.204,17.092-6h1.711c1.87,0,3.49-1.295,3.902-3.119l1.222-5.416C47.975,28.248,48,28.026,48,27.804v-1.969	C48,24.695,47.354,23.653,46.332,23.147z M24,38c-3.753,0-16-0.793-16-11c0-7.399,6.989-16,16-16s16,8.601,16,16	C40,37.207,27.753,38,24,38z"></path><path d="M24,10c-9.574,0-17,9.138-17,17c0,11.135,13.012,12,17,12s17-0.865,17-12C41,19.138,33.574,10,24,10z" opacity=".05"></path><path d="M24,10.5c-9.292,0-16.5,8.87-16.5,16.5c0,10.671,12.629,11.5,16.5,11.5S40.5,37.671,40.5,27	C40.5,19.37,33.292,10.5,24,10.5z" opacity=".07"></path><path fill="#fff" d="M24,11c-9.011,0-16,8.601-16,16c0,10.207,12.247,11,16,11s16-0.793,16-11C40,19.601,33.011,11,24,11 z"></path><path d="M24,34c-3.281,0-6.193-1.716-7.418-4.372l2.724-1.257C20.031,29.944,21.917,31,24,31c2.126,0,4.026-1.085,4.727-2.701 l2.752,1.194C30.31,32.189,27.304,34,24,34z"></path>
+</svg>
             </div>
             <h3 class="text-xl font-semibold mb-3">AI Web Development</h3>
             <p class="text-gray-400 mb-6">Cutting-edge web solutions powered by artificial intelligence, automation, and smart development workflows.</p>
@@ -445,16 +443,13 @@
             <a href="https://drewdotdev.netlify.app" target="_blank" class="btn-primary block text-center py-3 rounded-xl font-medium relative">
               Explore AI Tools
             </a>
-            <button class="btn-secondary block w-full text-center py-3 rounded-xl font-medium mt-4" data-project="gemini-chatbot">View Details</button>
+            <button class="btn-secondary block w-full text-center py-3 rounded-xl font-medium mt-4 border-blue-500 border-2 hover:bg-blue-600/30 transition-all duration-300" data-project="gemini-chatbot">View Details</button>
           </div>
 
           <!-- Blog Card -->
           <div class="card-hover bg-gray-800 rounded-2xl p-6 glass">
             <div class="h-48 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl mb-6 flex items-center justify-center">
-              <svg class="w-16 h-16 text-white" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/>
-                <path fill-rule="evenodd" d="M4 5a2 2 0 012-2v1a1 1 0 102 0V3a2 2 0 012 2v6a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 2a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"/>
-              </svg>
+            <img width="96" height="96" src="https://img.icons8.com/nolan/96/backend-development.png" alt="backend-development"/>
             </div>
             <h3 class="text-xl font-semibold mb-3">Titan Blog</h3>
             <p class="text-gray-400 mb-6">Technical insights, tutorials, and thoughts on the intersection of AI and web development.</p>
@@ -466,7 +461,7 @@
             <a href="https://68413e9900956178445b657f--titan-blog.netlify.app/" target="_blank" class="btn-primary block text-center py-3 rounded-xl font-medium relative">
               Read Articles
             </a>
-            <button class="btn-secondary block w-full text-center py-3 rounded-xl font-medium mt-4" data-project="ecommerce">View Details</button>
+            <button class="btn-secondary block w-full text-center py-3 rounded-xl font-medium mt-4 border-blue-500 border-2 hover:bg-blue-600/30 transition-all duration-300" data-project="ecommerce">View Details</button>
           </div>
         </div>
       </div>
@@ -489,7 +484,7 @@
                 <span class="bg-blue-900 text-blue-200 px-3 py-1 rounded-full text-xs">AI</span>
               </div>
               <p class="text-gray-300 mb-4">Exploring how GPT, Stable Diffusion, and other AI tools are revolutionizing the way we build and design websites. From automated code generation to intelligent UI suggestions.</p>
-              <button class="btn-blog-details text-blue-400 hover:text-blue-300 font-medium" data-blog="ai-web-development">Read More →</button>
+              <button class="btn-blog-details text-blue-400 hover:text-blue-300 font-medium border-blue-500 border-2 hover:bg-blue-600/30 transition-all duration-300 rounded-2xl px-2 py-1" data-blog="ai-web-development">Read More →</button>
             </div>
           </article>
 
@@ -504,7 +499,7 @@
                 <span class="bg-cyan-900 text-cyan-200 px-3 py-1 rounded-full text-xs">No-Code</span>
               </div>
               <p class="text-gray-300 mb-4">How no-code and low-code platforms are democratizing web development, enabling creators to build complex applications without traditional programming barriers.</p>
-              <button class="btn-blog-details text-cyan-400 hover:text-cyan-300 font-medium" data-blog="no-code-revolution">Read More →</button>
+              <button class="btn-blog-details text-cyan-400 hover:text-cyan-300 font-medium border-cyan-500 border-2 hover:bg-cyan-600/30 transition-all duration-300 rounded-2xl px-2 py-1" data-blog="no-code-revolution">Read More →</button>
             </div>
           </article>
 
@@ -519,7 +514,7 @@
                 <span class="bg-purple-900 text-purple-200 px-3 py-1 rounded-full text-xs">Design</span>
               </div>
               <p class="text-gray-300 mb-4">Analyzing current design trends including glassmorphism, micro-interactions, and AI-assisted design workflows that are shaping the future of user interfaces.</p>
-              <button class="btn-blog-details text-purple-400 hover:text-purple-300 font-medium" data-blog="modern-ui-ux">Read More →</button>
+              <button class="btn-blog-details text-purple-400 hover:text-purple-300 font-medium border-purple-500 border-2 hover:bg-purple-600/30 transition-all duration-300 rounded-2xl px-2 py-1" data-blog="modern-ui-ux">Read More →</button>
             </div>
           </article>
 
@@ -534,7 +529,7 @@
                 <span class="bg-green-900 text-green-200 px-3 py-1 rounded-full text-xs">Performance</span>
               </div>
               <p class="text-gray-300 mb-4">Strategies for maintaining lightning-fast websites while integrating AI features, image generation, and complex interactive elements without sacrificing user experience.</p>
-              <button class="btn-blog-details text-green-400 hover:text-green-300 font-medium" data-blog="performance-optimization">Read More →</button>
+              <button class="btn-blog-details text-green-400 hover:text-green-300 font-medium border-green-500 border-2 hover:bg-green-600/30 transition-all duration-300 rounded-2xl px-2 py-1" data-blog="performance-optimization">Read More →</button>
             </div>
           </article>
         </div>
@@ -555,21 +550,23 @@
           <div class="grid md:grid-cols-3 gap-6 text-center">
             <div class="p-4">
               <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-3">
-                <span class="text-xl">🚀</span>
+                <span class="text-xl"><img src="data:image/png;base64,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" alt="laptop-coding"></span>
               </div>
               <h3 class="font-semibold mb-2">Fast Development</h3>
               <p class="text-sm text-gray-400">Rapid prototyping and deployment</p>
             </div>
             <div class="p-4">
-              <div class="w-12 h-12 bg-cyan-500 rounded-full flex items-center justify-center mx-auto mb-3">
-                <span class="text-xl">🤖</span>
+              <div class="w-12 h-12 bg-sky-200/80 rounded-full flex items-center justify-center mx-auto mb-3">
+                <span class="text-xl"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50" viewBox="0 0 32 32">
+<radialGradient id="FBuol9Qptgpq4Ciu6aqyFa_sYUarM89AhbU_gr1" cx="242.011" cy="49.827" r=".028" gradientTransform="matrix(128.602 652.9562 653.274 -128.6646 -63653.82 -151597.453)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#1ba1e3"></stop><stop offset="0" stop-color="#1ba1e3"></stop><stop offset=".3" stop-color="#5489d6"></stop><stop offset=".545" stop-color="#9b72cb"></stop><stop offset=".825" stop-color="#d96570"></stop><stop offset="1" stop-color="#f49c46"></stop></radialGradient><path fill="url(#FBuol9Qptgpq4Ciu6aqyFa_sYUarM89AhbU_gr1)" d="M15.304,21.177l-1.203,2.756c-0.463,1.06-1.929,1.06-2.391,0l-1.203-2.756	c-1.071-2.453-2.999-4.406-5.403-5.473l-3.313-1.47c-1.053-0.467-1.053-2,0-2.467l3.209-1.424c2.466-1.095,4.429-3.12,5.481-5.656	L11.7,1.748c0.452-1.09,1.959-1.09,2.411,0l1.219,2.938c1.053,2.537,3.015,4.562,5.481,5.656l3.209,1.424	c1.053,0.467,1.053,2,0,2.467l-3.313,1.47C18.303,16.771,16.375,18.724,15.304,21.177z"></path><radialGradient id="FBuol9Qptgpq4Ciu6aqyFb_sYUarM89AhbU_gr2" cx="242.011" cy="49.827" r=".028" gradientTransform="matrix(128.602 652.9562 653.274 -128.6646 -63653.82 -151597.453)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#1ba1e3"></stop><stop offset="0" stop-color="#1ba1e3"></stop><stop offset=".3" stop-color="#5489d6"></stop><stop offset=".545" stop-color="#9b72cb"></stop><stop offset=".825" stop-color="#d96570"></stop><stop offset="1" stop-color="#f49c46"></stop></radialGradient><path fill="url(#FBuol9Qptgpq4Ciu6aqyFb_sYUarM89AhbU_gr2)" d="M26.488,29.868l-0.338,0.776	c-0.248,0.568-1.034,0.568-1.282,0l-0.338-0.776c-0.603-1.383-1.69-2.484-3.046-3.087l-1.043-0.463c-0.564-0.25-0.564-1.07,0-1.321	l0.984-0.437c1.391-0.618,2.497-1.76,3.09-3.19l0.348-0.838c0.242-0.584,1.05-0.584,1.292,0l0.348,0.838	c0.593,1.43,1.699,2.572,3.09,3.19l0.984,0.437c0.564,0.251,0.564,1.07,0,1.321l-1.043,0.463	C28.178,27.384,27.092,28.485,26.488,29.868z"></path><linearGradient id="FBuol9Qptgpq4Ciu6aqyFc_sYUarM89AhbU_gr3" x1="12.905" x2="12.905" y1=".93" y2="24.728" gradientUnits="userSpaceOnUse"><stop offset="0" stop-opacity=".02"></stop><stop offset="1" stop-opacity=".15"></stop></linearGradient><path fill="url(#FBuol9Qptgpq4Ciu6aqyFc_sYUarM89AhbU_gr3)" d="M24.02,11.766l-3.209-1.424	c-2.466-1.095-4.429-3.12-5.481-5.656L14.11,1.748c-0.226-0.545-0.716-0.818-1.206-0.818S11.926,1.203,11.7,1.748L10.48,4.685	c-1.053,2.537-3.015,4.562-5.482,5.656L1.79,11.766c-1.053,0.467-1.053,2,0,2.467l3.313,1.47c2.405,1.067,4.332,3.02,5.403,5.473	l1.203,2.756c0.231,0.53,0.714,0.795,1.196,0.795c0.482,0,0.964-0.265,1.196-0.795l1.203-2.756c1.071-2.453,2.999-4.406,5.403-5.473	l3.313-1.47C25.073,13.766,25.073,12.234,24.02,11.766z M23.919,14.005l-3.313,1.47c-2.468,1.095-4.432,3.085-5.531,5.601	l-1.203,2.756c-0.174,0.398-0.544,0.645-0.967,0.645s-0.793-0.247-0.967-0.645l-1.203-2.756c-1.099-2.517-3.063-4.506-5.531-5.601	l-3.313-1.47C1.418,13.795,1.25,13.348,1.25,13s0.168-0.795,0.641-1.005L5.1,10.57c2.536-1.126,4.529-3.182,5.611-5.789l1.219-2.938	c0.203-0.489,0.637-0.663,0.975-0.663c0.338,0,0.772,0.174,0.975,0.663l1.219,2.938c1.082,2.607,3.075,4.663,5.611,5.789	l3.209,1.424c0.473,0.21,0.641,0.657,0.641,1.005C24.56,13.348,24.391,13.795,23.919,14.005z"></path><linearGradient id="FBuol9Qptgpq4Ciu6aqyFd_sYUarM89AhbU_gr4" x1="25.509" x2="25.509" y1="20.094" y2="31.07" gradientUnits="userSpaceOnUse"><stop offset="0" stop-opacity=".02"></stop><stop offset="1" stop-opacity=".15"></stop></linearGradient><path fill="url(#FBuol9Qptgpq4Ciu6aqyFd_sYUarM89AhbU_gr4)" d="M30.577,24.997l-0.984-0.437	c-1.391-0.618-2.497-1.76-3.09-3.19l-0.348-0.838c-0.121-0.292-0.384-0.438-0.646-0.438c-0.262,0-0.525,0.146-0.646,0.438	l-0.348,0.838c-0.593,1.43-1.699,2.572-3.09,3.19l-0.984,0.437c-0.564,0.25-0.564,1.07,0,1.321l1.043,0.463	c1.356,0.602,2.443,1.704,3.046,3.087l0.338,0.776c0.124,0.284,0.382,0.426,0.641,0.426c0.259,0,0.517-0.142,0.641-0.426	l0.339-0.776c0.603-1.383,1.69-2.484,3.046-3.087l1.043-0.463C31.141,26.068,31.141,25.248,30.577,24.997z M30.476,26.09	l-1.043,0.463c-1.417,0.629-2.544,1.771-3.174,3.215l-0.339,0.776c-0.075,0.173-0.229,0.276-0.412,0.276	c-0.182,0-0.336-0.103-0.412-0.276l-0.339-0.776c-0.63-1.444-1.757-2.586-3.174-3.215l-1.043-0.463	c-0.172-0.076-0.274-0.238-0.274-0.432c0-0.194,0.103-0.356,0.274-0.432l0.984-0.437c1.456-0.647,2.599-1.827,3.219-3.323	l0.348-0.838c0.074-0.178,0.229-0.284,0.415-0.284c0.186,0,0.341,0.106,0.415,0.284l0.348,0.838c0.62,1.496,1.764,2.676,3.219,3.323	l0.984,0.437c0.172,0.076,0.274,0.238,0.274,0.432C30.75,25.852,30.647,26.013,30.476,26.09z"></path>
+</svg></span>
               </div>
               <h3 class="font-semibold mb-2">AI Integration</h3>
               <p class="text-sm text-gray-400">Smart automation and workflows</p>
             </div>
             <div class="p-4">
-              <div class="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-3">
-                <span class="text-xl">✨</span>
+              <div class="w-12 h-12 bg-purple-500/50 rounded-full flex items-center justify-center mx-auto mb-3">
+                <span class="text-xl"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAAENUlEQVR4nO2a32uVdRzHn+6yv2FD9OJsp9ZmTFYa6krLMLIMI8ky0uYmE5dB1rCLRDAKArcF2i6EItCds7kfteZ0ax7PzgKdu+lCmJdzgqMkB7scr/iIz+nx2Tl7vt/v8z2MJ54XvGCfz/dzPt/3vlfbmOPExMTExMSsCGXN5MoOw7I2M64875mNBKubQUWdeeshy46yau0hOtY0Mbf2EJRC965idbF5L95zybqmiXbJHvoBEk10JJqglHruKlgXm/flXDrbSFvoB0g2MpdshORBNodetnQ3omldbFdlA1vk68qD3AsdsqoBxNCLltkdpM689dzrPgYx9KJCuw+QdfcX9QDXlOe9s7Zy1+4H0YkY1nLXfQSiEzGs5d74IYhOxLCWe9M+EE1rW3tU71E9V6b+fRBNa1t7VO9RPVdm214QTWtbe1TvUT1XZvt7IJrWtvao3qN6rsyOPSCa1iuFtRw73wXRtF4prOXY9Q6IpvVKYS3H7t0gmta6HM1S0zLBVEuOxU8mQEWZlc8c+YNqWzny7HkbRNNal9YsU63jYOIX49y0lSPP3l0gmta6nMiweOIaGJlh0VaOPPveAtG09vRz7pnrB28u/RveNxkIY1AObfbvBNG09vf9+ufaxiCMQTm0aXgDRNNad65zFMIYtF+bptdBNK115366AmEM2q/N4R0gmtb+vl//XGoYwhiUQ5uW10A0rf19v/65gSEIY1AObT7dDqJprTt3eRDCGLRfm2OvgpivXwFRtdady/4CYSyW25jWbSCa1v6+X//cjX4IY1AObb7cCqJpne+/TNY9cz2+9b8/Y7v82QthDMqhzVcvgWha6zLdw+LtHjBRPmsrR56T9SCa1rrMdDN1pxtMnOlm0laOPKc2g2ha6zKTpvpuipuzaRbvpkHFR7OT8llbOfJ8uwlEJ2JYy/3diyA6EcNa7tMbQXQihrXc328AMeyejhfIubtKZccGJnF4wmZu58zzIPr7xzOUH8vR/XmO+YeO0/vZOBVBe0rtD7U8tVxubTrrQPT2TmYoP3WVv7/OwGNe5b6cqe6xSWcdC7LffQBr951bD6K3d3aE7rOjUMgzo6RU99jk3HoWZL/7ANbu+7EWRG/vwjDzXcNQxAfL7Sm17gMUym3Ez8+B6O1dHmS+2K+jw7/yz3J7Sq37AIVyG3FhHYje3vU+eq/3Q0H76FLdY5PzNSzI/oFHD2DtvnQNiN7erT4qpnu4f/siPGYPf033UKa6xyapahZkv/sA1u67+CyI/v6d85TPpknNpnnw0BRdM0W+ee+eUus+QLHc2gxUgRh2T38VWXdXyXyGG+4PQrZyO4NPg+hEDGu5LyWZu5SE3yrZ4kSEoQrqJfNQpYV/lR1J0D5SAVH0SoLToR9gooxVvydoH0twbywBEVGyto2t5snQDxATExMTExPj/F/5F3biJFSHU209AAAAAElFTkSuQmCC" alt="motherboard"></span>
               </div>
               <h3 class="font-semibold mb-2">Modern Design</h3>
               <p class="text-sm text-gray-400">Cutting-edge UI/UX principles</p>
