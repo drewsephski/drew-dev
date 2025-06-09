@@ -777,20 +777,11 @@
             blogPostModal.classList.remove('open');
           }
         });
-      });
-    </script>
-
-        blogModalClose.addEventListener('click', () => {
-            blogPostModal.classList.remove('open');
-        });
-
-        blogPostModal.addEventListener('click', (event) => {
-            if (event.target === blogPostModal) {
-                blogPostModal.classList.remove('open');
-            }
-        });
 
         // Contact Form Submission (Example - replace with actual backend integration)
+        const contactForm = document.getElementById('contactForm');
+        const formStatus = document.getElementById('formStatus');
+
         contactForm.addEventListener('submit', async (event) => {
           event.preventDefault();
           formStatus.textContent = 'Sending message...';
@@ -813,23 +804,23 @@
           }
         });
 
-        // Hamburger menu and mobile menu logic
-        const hamburgerIcon = document.getElementById('hamburger-icon');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const mobileMenuCloseBtn = mobileMenu.querySelector('.close-btn');
-        const mobileMenuLinks = mobileMenu.querySelectorAll('.mobile-menu-link');
+        // Hamburger menu and mobile menu logic (re-added for clarity, though already present)
+        const hamburgerIconMobile = document.getElementById('hamburger-icon');
+        const mobileMenuMobile = document.getElementById('mobile-menu');
+        const mobileMenuCloseBtnMobile = mobileMenuMobile.querySelector('.close-btn');
+        const mobileMenuLinksMobile = mobileMenuMobile.querySelectorAll('.mobile-menu-link');
 
-        hamburgerIcon.addEventListener('click', () => {
-          mobileMenu.classList.add('open');
+        hamburgerIconMobile.addEventListener('click', () => {
+          mobileMenuMobile.classList.add('open');
         });
 
-        mobileMenuCloseBtn.addEventListener('click', () => {
-          mobileMenu.classList.remove('open');
+        mobileMenuCloseBtnMobile.addEventListener('click', () => {
+          mobileMenuMobile.classList.remove('open');
         });
 
-        mobileMenuLinks.forEach(link => {
+        mobileMenuLinksMobile.forEach(link => {
           link.addEventListener('click', () => {
-            mobileMenu.classList.remove('open');
+            mobileMenuMobile.classList.remove('open');
             // Smooth scroll to section
             const targetSectionId = link.dataset.section;
             const targetSection = document.getElementById(targetSectionId);
