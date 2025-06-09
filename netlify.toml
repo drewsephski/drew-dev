@@ -1,0 +1,5 @@
+[build]
+  command = "npm install && npm run build && npx prisma migrate deploy && npx prisma generate"
+  publish = "public"
+  functions = "netlify/functions"
+  base = "/"

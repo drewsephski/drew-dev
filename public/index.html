@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prisma Tailwind App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+      :root {
+        --primary: #3b82f6; /* Blue */
+        --primary-dark: #1d4ed8; /* Darker Blue */
+        --primary-light: #60a5fa; /* Lighter Blue */
+        --accent: #06b6d4; /* Cyan */
+        --accent-dark: #0e7490; /* Darker Cyan */
+        --accent-light: #22d3ee; /* Lighter Cyan */
+        --purple: #8b5cf6; /* Purple */
+        --purple-dark: #6d28d9; /* Darker Purple */
+        --purple-light: #a78bfa; /* Lighter Purple */
+        --text-primary: #f8fafc; /* Slate 50 */
+        --text-secondary: #cbd5e1; /* Slate 300 */
+        --bg-primary: #0f172a; /* Slate 900 */
+        --bg-secondary: #1e293b; /* Slate 800 */
+        --bg-card: rgba(30, 41, 59, 0.7); /* Slate 800 with transparency */
+        --border: rgba(59, 130, 246, 0.3); /* Primary with transparency */
+        --glass-bg: rgba(255, 255, 255, 0.08); /* More subtle glass background */
+        --glass-border: rgba(255, 255, 255, 0.15); /* More distinct glass border */
+      }
+
+      body {
+        font-family: 'Inter', sans-serif;
+        background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-primary) 100%);
+        background-attachment: fixed;
+        color: var(--text-primary);
+        overflow-x: hidden;
+        line-height: 1.6; /* Improved line height for readability */
+      }
+
+      h1, h2, h3, h4, h5, h6 {
+        line-height: 1.2; /* Tighter line height for headings */
+        margin-bottom: 0.5em; /* Consistent spacing below headings */
+      }
+
+      p {
+        margin-bottom: 1em; /* Consistent spacing below paragraphs */
+      }
+
+      .gradient-text {
+        background: linear-gradient(135deg, var(--primary-light), var(--accent-light), var(--purple-light));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: gradient-shift 3s ease-in-out infinite;
+      }
+
+      @keyframes gradient-shift {
+        0%, 100% { filter: hue-rotate(0deg); }
+        50% { filter: hue-rotate(20deg); }
+      }
+
+      .floating {
+        animation: float 6s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+      }
+
+      .card-hover {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        backdrop-filter: blur(10px);
+        border: 1px solid var(--border);
+      }
+
+      .card-hover:hover {
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 0 25px 50px -12px rgba(59, 130, 246, 0.25);
+        border-color: var(--primary);
+        background: var(--bg-card); /* Use variable for consistency */
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        min-width: 44px; /* Larger touch target */
+        min-height: 44px; /* Larger touch target */
+        display: inline-flex; /* For proper centering of content with min-height/width */
+        align-items: center;
+        justify-content: center;
+      }
+
+      .btn-primary:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        transition: left 0.5s;
+      }
+
+      .btn-primary:hover:before {
+        left: 100%;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 0 30px rgba(59, 130, 246, 0.6); /* Subtle glow effect */
+        background: linear-gradient(135deg, var(--primary-light), var(--primary)); /* Slightly lighter on hover */
+      }
+
+      .tech-badge {
+        background: rgba(59, 130, 246, 0.1);
+        border: 1px solid rgba(59, 130, 246, 0.3);
+        transition: all 0.2s ease;
+        padding: 0.5rem 1rem; /* Ensure larger touch target */
+        min-width: 44px;
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .tech-badge:hover {
+        background: rgba(59, 130, 246, 0.2);
+        transform: scale(1.05);
+      }
+
+      .pulse-ring {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        border: 2px solid var(--primary);
+        border-radius: 50%;
+        animation: pulse-ring 2s ease-out infinite;
+      }
+
+      @keyframes pulse-ring {
+        0% {
+          transform: scale(0);
+          opacity: 1;
+        }
+        100% {
+          transform: scale(10);
+          opacity: 0;
+        }
+      }
+
+      .section-fade {
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeInUp 0.8s ease forwards;
+      }
+
+      @keyframes fadeInUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .parallax {
+        transform: translateZ(0);
+      }
+
+      .glass {
+        background: var(--glass-bg); /* Use new variable */
+        backdrop-filter: blur(15px); /* Increased blur for more depth */
+        border: 1px solid var(--glass-border); /* Use new variable for distinction */
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); /* Added subtle shadow */
+      }
+
+      @media (max-width: 768px) {
+        .text-6xl {
+          font-size: 3rem; /* Adjusted for better mobile readability */
+        }
+
+        .text-7xl {
+          font-size: 4rem; /* Adjusted for better mobile readability */
+        }
+
+        .text-8xl {
+          font-size: 5rem; /* Adjusted for better mobile readability */
+        }
+
+        .text-2xl {
+          font-size: 1.125rem; /* Adjusted for better mobile readability */
+        }
+
+        .text-xl {
+          font-size: 1rem; /* Adjusted for better mobile readability */
+        }
+
+        .text-4xl {
+          font-size: 2rem; /* Adjusted for better mobile readability */
+        }
+
+        .max-w-6xl {
+          padding-left: 1rem;
+          padding-right: 1rem;
+        }
+
+        .flex-wrap {
+          flex-wrap: wrap;
+        }
+
+        .space-x-6 > *:not(:first-child) {
+          margin-left: 0.75rem; /* Adjust spacing for nav items */
+        }
+
+        .btn-primary {
+          padding: 0.75rem 1.5rem; /* Adjust button padding */
+          font-size: 0.875rem; /* Adjust button font size */
+        }
+
+        .card-hover {
+          padding: 1.5rem; /* Adjust card padding */
+        }
+
+        .h-48 {
+          height: 10rem; /* Adjust project card image height for mobile */
+        }
+
+        /* Ensure grid stacking for mobile */
+        .grid-cols-1 {
+          grid-template-columns: 1fr;
+        }
+        .md\:grid-cols-2 {
+          grid-template-columns: 1fr; /* Override for mobile */
+        }
+        .lg\:grid-cols-3 {
+          grid-template-columns: 1fr; /* Override for mobile */
+        }
+        .lg\:grid-cols-2 {
+          grid-template-columns: 1fr; /* Override for mobile */
+        }
+
+        /* Navbar adjustments for mobile */
+        .navbar-links {
+          display: none; /* Hide regular nav links on mobile */
+        }
+
+        .hamburger-menu {
+          display: block; /* Show hamburger icon on mobile */
+        }
+
+        .mobile-menu-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.9);
+          z-index: 60;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          opacity: 0;
+          visibility: hidden;
+          transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .mobile-menu-overlay.open {
+          opacity: 1;
+          visibility: visible;
+        }
+
+        .mobile-menu-overlay .close-btn {
+          position: absolute;
+          top: 1rem;
+          right: 1rem;
+          font-size: 2rem;
+          color: var(--text-primary);
+          cursor: pointer;
+        }
+
+        .mobile-menu-overlay a {
+          font-size: 2rem;
+          margin-bottom: 1.5rem;
+          color: var(--text-primary);
+          transition: color 0.3s ease;
+        }
+
+        .mobile-menu-overlay a:hover {
+          color: var(--primary-light);
+        }
+      }
+
+      /* Default hide for hamburger menu and mobile overlay */
+      .hamburger-menu, .mobile-menu-overlay {
+        display: none;
+      }
+
+    .blog-modal {
+        position: fixed;
+        inset: 0;
+        background-color: rgba(0, 0, 0, 0.75);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 50;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .blog-modal.open {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .blog-modal-content {
+        background-color: var(--bg-secondary); /* bg-gray-800 */
+        padding: 2rem; /* p-8 */
+        border-radius: 0.5rem; /* rounded-lg */
+        max-width: 42rem; /* max-w-2xl */
+        width: 100%;
+        position: relative;
+        backdrop-filter: blur(10px); /* glass */
+        border: 1px solid var(--glass-border); /* glass */
+        transform: translateY(20px);
+        transition: transform 0.3s ease;
+    }
+
+    .blog-modal.open .blog-modal-content {
+        transform: translateY(0);
+    }
+
+    .blog-modal-close {
+        position: absolute;
+        top: 1rem; /* top-4 */
+        right: 1rem; /* right-4 */
+        color: var(--text-secondary); /* text-gray-400 */
+        font-size: 1.5rem; /* text-2xl */
+        cursor: pointer;
+        transition: color 0.3s ease;
+    }
+
+    .blog-modal-close:hover {
+        color: var(--text-primary); /* hover:text-white */
+    }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="fixed top-0 left-0 right-0 bg-gray-900 bg-opacity-80 backdrop-filter backdrop-blur-lg z-50 shadow-lg">
+      <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+        <a href="#" class="text-2xl font-bold gradient-text">drew.dev</a>
+        <div class="hidden md:flex space-x-6 navbar-links">
+          <a href="#hero" class="text-gray-300 hover:text-white transition duration-300">Home</a>
+          <a href="#projects" class="text-gray-300 hover:text-white transition duration-300">Projects</a>
+          <a href="#contact" class="text-gray-300 hover:text-white transition duration-300">Contact</a>
+        </div>
+        <div class="md:hidden">
+          <button id="hamburger-icon" class="text-gray-300 hover:text-white focus:outline-none">
+            <i class="fas fa-bars text-2xl"></i>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="mobile-menu-overlay">
+      <button class="close-btn">&times;</button>
+      <a href="#hero" class="mobile-menu-link" data-section="hero">Home</a>
+      <a href="#projects" class="mobile-menu-link" data-section="projects">Projects</a>
+      <a href="#contact" class="mobile-menu-link" data-section="contact">Contact</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="hero" class="min-h-screen flex items-center justify-center px-4 relative pt-20"> <!-- Added pt-20 for navbar clearance -->
+      <!-- Animated background elements -->
+      <div class="absolute inset-0 overflow-hidden">
+        <div class="absolute top-1/4 left-1/4 w-2 h-2 bg-blue-400 rounded-full pulse-ring"></div>
+        <div class="absolute top-3/4 right-1/3 w-2 h-2 bg-cyan-400 rounded-full pulse-ring" style="animation-delay: 1s;"></div>
+        <div class="absolute bottom-1/4 left-1/2 w-2 h-2 bg-purple-400 rounded-full pulse-ring" style="animation-delay: 2s;"></div>
+      </div>
+      
+      <div class="text-center max-w-4xl mx-auto section-fade">
+        <h1 class="text-6xl sm:text-7xl md:text-8xl font-bold mb-6 gradient-text floating">
+          drew.dev
+        </h1>
+        <p class="text-xl sm:text-xl md:text-2xl text-gray-300 mb-8 font-light">
+          AI-Powered Web Development & Innovation
+        </p>
+        <div class="flex flex-wrap justify-center gap-3 mb-12">
+          <span class="tech-badge px-4 py-2 rounded-full text-sm font-medium">Next.js</span>
+          <span class="tech-badge px-4 py-2 rounded-full text-sm font-medium">AI Integration</span>
+          <span class="tech-badge px-4 py-2 rounded-full text-sm font-medium">Modern UI/UX</span>
+          <span class="tech-badge px-4 py-2 rounded-full text-sm font-medium">Tailwind CSS</span>
+        </div>
+        <a href="#projects" class="btn-primary inline-block px-8 py-4 rounded-full text-lg font-semibold text-white relative">
+          Explore My Work
+        </a>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 px-4">
+      <div class="max-w-6xl mx-auto">
+        <h2 class="text-4xl font-bold text-center mb-16 gradient-text">Featured Projects</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Portfolio Card -->
+          <div class="card-hover bg-gray-800 rounded-2xl p-6 glass">
+            <div class="h-48 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl mb-6 flex items-center justify-center">
+              <i class="fas fa-laptop-code text-6xl text-white"></i>
+            </div>
+            <h3 class="text-xl font-semibold mb-3">Portfolio Showcase</h3>
+            <p class="text-gray-400 mb-6">A sleek, responsive portfolio built with modern web technologies and enhanced with AI-driven features.</p>
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span class="bg-blue-900 text-blue-200 px-3 py-1 rounded-full text-xs">React</span>
+              <span class="bg-purple-900 text-purple-200 px-3 py-1 rounded-full text-xs">Tailwind</span>
+              <span class="bg-green-900 text-green-200 px-3 py-1 rounded-full text-xs">Responsive</span>
+            </div>
+            <a href="https://drew-shadcn.netlify.app" target="_blank" class="btn-primary block text-center py-3 rounded-xl font-medium relative">
+              View Project
+            </a>
+            <button class="btn-secondary block w-full text-center py-3 rounded-xl font-medium mt-4" data-project="portfolio">View Details</button>
+          </div>
+
+          <!-- Gemini AI Chatbot Card -->
+          <div class="card-hover bg-gray-800 rounded-2xl p-6 glass">
+            <div class="h-48 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl mb-6 flex items-center justify-center">
+              <svg class="w-16 h-16 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold mb-3">AI Web Development</h3>
+            <p class="text-gray-400 mb-6">Cutting-edge web solutions powered by artificial intelligence, automation, and smart development workflows.</p>
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span class="bg-cyan-900 text-cyan-200 px-3 py-1 rounded-full text-xs">AI</span>
+              <span class="bg-indigo-900 text-indigo-200 px-3 py-1 rounded-full text-xs">Automation</span>
+              <span class="bg-pink-900 text-pink-200 px-3 py-1 rounded-full text-xs">Innovation</span>
+            </div>
+            <a href="https://drewdotdev.netlify.app" target="_blank" class="btn-primary block text-center py-3 rounded-xl font-medium relative">
+              Explore AI Tools
+            </a>
+            <button class="btn-secondary block w-full text-center py-3 rounded-xl font-medium mt-4" data-project="gemini-chatbot">View Details</button>
+          </div>
+
+          <!-- Blog Card -->
+          <div class="card-hover bg-gray-800 rounded-2xl p-6 glass">
+            <div class="h-48 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl mb-6 flex items-center justify-center">
+              <svg class="w-16 h-16 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/>
+                <path fill-rule="evenodd" d="M4 5a2 2 0 012-2v1a1 1 0 102 0V3a2 2 0 012 2v6a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 2a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold mb-3">Titan Blog</h3>
+            <p class="text-gray-400 mb-6">Technical insights, tutorials, and thoughts on the intersection of AI and web development.</p>
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span class="bg-purple-900 text-purple-200 px-3 py-1 rounded-full text-xs">Writing</span>
+              <span class="bg-orange-900 text-orange-200 px-3 py-1 rounded-full text-xs">Tutorials</span>
+              <span class="bg-red-900 text-red-200 px-3 py-1 rounded-full text-xs">Insights</span>
+            </div>
+            <a href="https://68413e9900956178445b657f--titan-blog.netlify.app/" target="_blank" class="btn-primary block text-center py-3 rounded-xl font-medium relative">
+              Read Articles
+            </a>
+            <button class="btn-secondary block w-full text-center py-3 rounded-xl font-medium mt-4" data-project="ecommerce">View Details</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Blog Posts Section -->
+    <section class="py-20 px-4 bg-gradient-to-r from-gray-900 to-gray-800">
+      <div class="max-w-6xl mx-auto">
+        <h2 class="text-4xl font-bold text-center mb-16 gradient-text">Latest Blog Posts</h2>
+        
+        <div class="grid lg:grid-cols-2 gap-8">
+          <!-- Blog Post 1 -->
+          <article class="card-hover bg-gray-800 rounded-2xl overflow-hidden glass">
+            <div class="h-48 bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center">
+              <h3 class="text-2xl font-bold text-white text-center px-6">The Future of AI in Web Development</h3>
+            </div>
+            <div class="p-6">
+              <div class="flex items-center gap-4 mb-4">
+                <span class="text-sm text-gray-400">March 2025</span>
+                <span class="bg-blue-900 text-blue-200 px-3 py-1 rounded-full text-xs">AI</span>
+              </div>
+              <p class="text-gray-300 mb-4">Exploring how GPT, Stable Diffusion, and other AI tools are revolutionizing the way we build and design websites. From automated code generation to intelligent UI suggestions.</p>
+              <button class="btn-blog-details text-blue-400 hover:text-blue-300 font-medium" data-blog="ai-web-development">Read More →</button>
+            </div>
+          </article>
+
+          <!-- Blog Post 2 -->
+          <article class="card-hover bg-gray-800 rounded-2xl overflow-hidden glass">
+            <div class="h-48 bg-gradient-to-br from-cyan-600 to-teal-700 flex items-center justify-center">
+              <h3 class="text-2xl font-bold text-white text-center px-6">No-Code Revolution: Building Without Barriers</h3>
+            </div>
+            <div class="p-6">
+              <div class="flex items-center gap-4 mb-4">
+                <span class="text-sm text-gray-400">February 2025</span>
+                <span class="bg-cyan-900 text-cyan-200 px-3 py-1 rounded-full text-xs">No-Code</span>
+              </div>
+              <p class="text-gray-300 mb-4">How no-code and low-code platforms are democratizing web development, enabling creators to build complex applications without traditional programming barriers.</p>
+              <button class="btn-blog-details text-cyan-400 hover:text-cyan-300 font-medium" data-blog="no-code-revolution">Read More →</button>
+            </div>
+          </article>
+
+          <!-- Blog Post 3 -->
+          <article class="card-hover bg-gray-800 rounded-2xl overflow-hidden glass">
+            <div class="h-48 bg-gradient-to-br from-purple-600 to-pink-700 flex items-center justify-center">
+              <h3 class="text-2xl font-bold text-white text-center px-6">Modern UI/UX: Designing for Tomorrow</h3>
+            </div>
+            <div class="p-6">
+              <div class="flex items-center gap-4 mb-4">
+                <span class="text-sm text-gray-400">January 2025</span>
+                <span class="bg-purple-900 text-purple-200 px-3 py-1 rounded-full text-xs">Design</span>
+              </div>
+              <p class="text-gray-300 mb-4">Analyzing current design trends including glassmorphism, micro-interactions, and AI-assisted design workflows that are shaping the future of user interfaces.</p>
+              <button class="btn-blog-details text-purple-400 hover:text-purple-300 font-medium" data-blog="modern-ui-ux">Read More →</button>
+            </div>
+          </article>
+
+          <!-- Blog Post 4 -->
+          <article class="card-hover bg-gray-800 rounded-2xl overflow-hidden glass">
+            <div class="h-48 bg-gradient-to-br from-green-600 to-emerald-700 flex items-center justify-center">
+              <h3 class="text-2xl font-bold text-white text-center px-6">Performance Optimization in the AI Era</h3>
+            </div>
+            <div class="p-6">
+              <div class="flex items-center gap-4 mb-4">
+                <span class="text-sm text-gray-400">December 2024</span>
+                <span class="bg-green-900 text-green-200 px-3 py-1 rounded-full text-xs">Performance</span>
+              </div>
+              <p class="text-gray-300 mb-4">Strategies for maintaining lightning-fast websites while integrating AI features, image generation, and complex interactive elements without sacrificing user experience.</p>
+              <button class="btn-blog-details text-green-400 hover:text-green-300 font-medium" data-blog="performance-optimization">Read More →</button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="py-20 px-4">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-4xl font-bold mb-8 gradient-text">About drew.dev</h2>
+        <div class="glass rounded-2xl p-8 md:p-12">
+          <p class="text-lg md:text-xl text-gray-300 mb-6 leading-relaxed">
+            At <span class="text-blue-400 font-semibold">drew.dev</span>, I'm pushing the boundaries of what's possible in web development by seamlessly integrating artificial intelligence with modern design principles.
+          </p>
+          <p class="text-gray-400 mb-8 leading-relaxed">
+            From crafting responsive portfolios to building AI-powered applications, I specialize in creating digital experiences that are not just visually stunning, but intelligently engineered for the future. Whether you're launching a startup, showcasing your work, or exploring innovative web solutions, I provide the expertise to transform your vision into reality.
+          </p>
+          <div class="grid md:grid-cols-3 gap-6 text-center">
+            <div class="p-4">
+              <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                <span class="text-xl">🚀</span>
+              </div>
+              <h3 class="font-semibold mb-2">Fast Development</h3>
+              <p class="text-sm text-gray-400">Rapid prototyping and deployment</p>
+            </div>
+            <div class="p-4">
+              <div class="w-12 h-12 bg-cyan-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                <span class="text-xl">🤖</span>
+              </div>
+              <h3 class="font-semibold mb-2">AI Integration</h3>
+              <p class="text-sm text-gray-400">Smart automation and workflows</p>
+            </div>
+            <div class="p-4">
+              <div class="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                <span class="text-xl">✨</span>
+              </div>
+              <h3 class="font-semibold mb-2">Modern Design</h3>
+              <p class="text-sm text-gray-400">Cutting-edge UI/UX principles</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 px-4">
+      <div class="max-w-xl mx-auto">
+        <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Get in Touch</h2>
+        
+        <form id="contactForm" class="glass p-8 rounded-2xl space-y-6 card-hover">
+          <div>
+            <label for="name" class="block text-gray-300 text-sm font-medium mb-2">Name</label>
+            <input type="text" id="name" name="name" required class="w-full px-4 py-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:outline-none focus:border-blue-500">
+          </div>
+          <div>
+            <label for="email" class="block text-gray-300 text-sm font-medium mb-2">Email</label>
+            <input type="email" id="email" name="email" required class="w-full px-4 py-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:outline-none focus:border-blue-500">
+          </div>
+          <div>
+            <label for="message" class="block text-gray-300 text-sm font-medium mb-2">Message</label>
+            <textarea id="message" name="message" rows="6" required class="w-full px-4 py-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:outline-none focus:border-blue-500"></textarea>
+          </div>
+          <button type="submit" class="btn-primary w-full px-4 py-3 rounded-lg text-lg font-semibold text-white relative">
+            Send Message
+          </button>
+        </form>
+        <p id="formStatus" class="text-center mt-6 text-gray-400"></p>
+      </div>
+    </section>
+
+    <footer class="text-center py-10 text-gray-500 text-sm">
+      © 2023 drew.dev. All rights reserved.
+    </footer>
+
+    <!-- Project Detail Modal -->
+    <div id="projectModal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 hidden">
+      <div class="bg-gray-800 p-8 rounded-lg max-w-2xl w-full relative glass">
+        <button id="closeModal" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl">&times;</button>
+        <h3 id="modalTitle" class="text-3xl font-bold mb-4 gradient-text"></h3>
+        <p id="modalDescription" class="text-gray-300 mb-6"></p>
+        <div id="modalTechStack" class="flex flex-wrap gap-2 mb-6"></div>
+        <a id="modalProjectLink" href="#" target="_blank" class="btn-primary inline-block px-6 py-3 rounded-lg text-lg font-semibold text-white relative">View Project</a>
+      </div>
+    </div>
+
+    <!-- Blog Post Details Modal -->
+    <div id="blogPostModal" class="blog-modal">
+        <div class="blog-modal-content">
+            <span id="closeBlogModal" class="blog-modal-close">&times;</span>
+            <h2 id="blogTitle" class="text-2xl font-bold mb-4 gradient-text"></h2>
+            <p id="blogDescription" class="text-gray-300"></p>
+        </div>
+    </div>
+<script>
+      document.addEventListener('DOMContentLoaded', () => {
+        // Mobile menu functionality
+        const hamburgerIcon = document.getElementById('hamburger-icon');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const closeBtn = mobileMenu.querySelector('.close-btn');
+        const mobileMenuLinks = mobileMenu.querySelectorAll('.mobile-menu-link');
+
+        hamburgerIcon.addEventListener('click', () => {
+          mobileMenu.classList.add('open');
+        });
+
+        closeBtn.addEventListener('click', () => {
+          mobileMenu.classList.remove('open');
+        });
+
+        mobileMenuLinks.forEach(link => {
+          link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = link.getAttribute('data-section');
+            const targetSection = document.getElementById(targetId);
+            if (targetSection) {
+              targetSection.scrollIntoView({ behavior: 'smooth' });
+              mobileMenu.classList.remove('open');
+            }
+          });
+        });
+
+        // Project modal functionality
+        const projectModal = document.getElementById('projectModal');
+        const closeModalButton = document.getElementById('closeModal'); // Corrected ID
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDescription = document.getElementById('modalDescription');
+        const modalTechStack = document.getElementById('modalTechStack');
+        const modalProjectLink = document.getElementById('modalProjectLink');
+        const viewDetailsButtons = document.querySelectorAll('.btn-secondary[data-project]');
+
+        const projectsData = {
+          portfolio: {
+            title: 'Portfolio Showcase',
+            description: 'A modern, responsive portfolio website built with React and Tailwind CSS, featuring a clean design and smooth animations. It integrates AI-driven content generation for dynamic updates and personalized user experiences. The project emphasizes performance optimization and accessibility.',
+            tech: ['React', 'Tailwind CSS', 'AI Integration', 'Responsive Design', 'Netlify'],
+            link: 'https://drew-shadcn.netlify.app'
+          },
+          'gemini-chatbot': {
+            title: 'AI Web Development',
+            description: 'An innovative web application demonstrating the power of AI in development. This project showcases a Gemini AI-powered chatbot capable of understanding complex queries and generating code snippets, design suggestions, and technical explanations in real-time. It features a highly interactive user interface and robust backend integration.',
+            tech: ['Gemini API', 'Node.js', 'Express.js', 'WebSockets', 'AI/ML', 'Real-time Chat'],
+            link: 'https://drewdotdev.netlify.app'
+          },
+          ecommerce: {
+            title: 'Titan Blog',
+            description: 'A comprehensive blog platform designed for technical articles and tutorials. It features a robust content management system, search functionality, and a responsive design for optimal readability on all devices. The platform is optimized for SEO and integrates social sharing features.',
+            tech: ['Next.js', 'Markdown', 'SEO', 'Content Management', 'Responsive'],
+            link: 'https://68413e9900956178445b657f--titan-blog.netlify.app/'
+          }
+        };
+
+        viewDetailsButtons.forEach(button => {
+          button.addEventListener('click', (event) => {
+            const projectId = event.target.dataset.project;
+            const project = projectsData[projectId];
+            if (project) {
+              modalTitle.textContent = project.title;
+              modalDescription.textContent = project.description;
+              modalTechStack.innerHTML = '';
+              project.tech.forEach(tech => {
+                const span = document.createElement('span');
+                span.className = 'bg-gray-700 text-gray-300 px-3 py-1 rounded-full text-sm';
+                span.textContent = tech;
+                modalTechStack.appendChild(span);
+              });
+              modalProjectLink.href = project.link;
+              projectModal.classList.remove('hidden');
+            }
+          });
+        });
+
+        closeModalButton.addEventListener('click', () => {
+          projectModal.classList.add('hidden');
+        });
+
+        projectModal.addEventListener('click', (event) => {
+          if (event.target === projectModal) {
+            projectModal.classList.add('hidden');
+          }
+        });
+
+        // Blog Post Modal Logic
+        const blogPostModal = document.getElementById('blogPostModal');
+        const blogModalClose = document.getElementById('closeBlogModal'); // Corrected ID
+        const blogModalTitle = document.getElementById('blogTitle'); // Corrected ID
+        const blogModalContent = document.getElementById('blogDescription'); // Corrected ID
+
+        const blogPostsData = {
+            'ai-web-development': {
+                title: 'The Future of AI in Web Development',
+                content: `
+                    <p>Artificial intelligence is rapidly transforming the landscape of web development. Tools like GPT-4 are enabling automated code generation, intelligent debugging, and even entire website creation from natural language prompts. Stable Diffusion and other generative AI models are revolutionizing UI/UX design by creating stunning visuals and design assets on demand.</p>
+                    <p>This shift means developers can focus more on complex logic and innovative solutions, while repetitive tasks are handled by AI. The future promises highly personalized user experiences, dynamic content generation, and significantly accelerated development cycles.</p>
+                    <p>Embracing AI in your workflow is no longer optional; it's a necessity for staying competitive and unlocking new levels of creativity and efficiency.</p>
+                `
+            },
+            'no-code-revolution': {
+                title: 'No-Code Revolution: Building Without Barriers',
+                content: `
+                    <p>No-code and low-code platforms are democratizing web development, empowering individuals and small businesses to create sophisticated applications without writing a single line of code. Tools like Webflow, Bubble, and Adalo provide intuitive visual interfaces to build everything from e-commerce sites to complex internal tools.</p>
+                    <p>This revolution is not about replacing developers, but about expanding the pool of creators. It allows designers, entrepreneurs, and domain experts to rapidly prototype and launch ideas, fostering innovation and reducing time-to-market. For developers, it means focusing on custom integrations, complex logic, and extending the capabilities of these platforms.</p>
+                    <p>The synergy between no-code and traditional development is creating a more inclusive and efficient digital ecosystem.</p>
+                `
+            },
+            'modern-ui-ux': {
+                title: 'Modern UI/UX: Designing for Tomorrow',
+                content: `
+                    <p>The modern web demands interfaces that are not just functional, but also aesthetically pleasing and intuitively usable. Current UI/UX trends are heavily influenced by principles like glassmorphism, which uses frosted glass effects to create depth, and subtle micro-interactions that provide delightful feedback to users.</p>
+                    <p>AI is also playing a crucial role in design, assisting with user research, A/B testing, and even generating design variations. The focus is on creating immersive, accessible, and highly responsive experiences across all devices. Designers are increasingly leveraging animation, dark modes, and personalized content to engage users more deeply.</p>
+                    <p>Staying ahead in UI/UX means constantly adapting to new technologies and understanding evolving user expectations.</p>
+                `
+            },
+            'performance-optimization': {
+                title: 'Performance Optimization in the AI Era',
+                content: `
+                    <p>As web applications become more complex with AI integrations, rich media, and interactive elements, performance optimization becomes paramount. Slow loading times and unresponsive interfaces can severely impact user experience and SEO rankings.</p>
+                    <p>Strategies include optimizing image and video delivery, lazy loading content, efficient data fetching (especially for AI model inferences), and leveraging modern web technologies like WebAssembly and service workers. Server-side rendering (SSR) and static site generation (SSG) are also critical for initial load performance.</p>
+                    <p>A fast website is a user-friendly website, and in the AI era, it's also a competitive advantage.</p>
+                `
+            }
+        };
+
+        document.querySelectorAll('.btn-blog-details').forEach(button => {
+            button.addEventListener('click', (event) => {
+                const blogId = event.target.dataset.blog;
+                const blogPost = blogPostsData[blogId];
+                if (blogPost) {
+                    blogModalTitle.textContent = blogPost.title;
+                    blogModalContent.innerHTML = blogPost.content;
+                    blogPostModal.classList.add('open');
+                }
+            });
+        });
+
+        blogModalClose.addEventListener('click', () => {
+          blogPostModal.classList.remove('open');
+        });
+
+        blogPostModal.addEventListener('click', (e) => {
+          if (e.target === blogPostModal) {
+            blogPostModal.classList.remove('open');
+          }
+        });
+      });
+    </script>
+
+        blogModalClose.addEventListener('click', () => {
+            blogPostModal.classList.remove('open');
+        });
+
+        blogPostModal.addEventListener('click', (event) => {
+            if (event.target === blogPostModal) {
+                blogPostModal.classList.remove('open');
+            }
+        });
+
+        // Contact Form Submission (Example - replace with actual backend integration)
+        contactForm.addEventListener('submit', async (event) => {
+          event.preventDefault();
+          formStatus.textContent = 'Sending message...';
+          formStatus.className = 'text-center mt-6 text-blue-400';
+
+          const formData = new FormData(contactForm);
+          const data = Object.fromEntries(formData.entries());
+
+          try {
+            // Simulate API call
+            await new Promise(resolve => setTimeout(resolve, 2000)); 
+            console.log('Form submitted:', data);
+            formStatus.textContent = 'Message sent successfully!';
+            formStatus.className = 'text-center mt-6 text-green-400';
+            contactForm.reset();
+          } catch (error) {
+            console.error('Form submission error:', error);
+            formStatus.textContent = 'Failed to send message. Please try again.';
+            formStatus.className = 'text-center mt-6 text-red-400';
+          }
+        });
+
+        // Hamburger menu and mobile menu logic
+        const hamburgerIcon = document.getElementById('hamburger-icon');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuCloseBtn = mobileMenu.querySelector('.close-btn');
+        const mobileMenuLinks = mobileMenu.querySelectorAll('.mobile-menu-link');
+
+        hamburgerIcon.addEventListener('click', () => {
+          mobileMenu.classList.add('open');
+        });
+
+        mobileMenuCloseBtn.addEventListener('click', () => {
+          mobileMenu.classList.remove('open');
+        });
+
+        mobileMenuLinks.forEach(link => {
+          link.addEventListener('click', () => {
+            mobileMenu.classList.remove('open');
+            // Smooth scroll to section
+            const targetSectionId = link.dataset.section;
+            const targetSection = document.getElementById(targetSectionId);
+            if (targetSection) {
+              targetSection.scrollIntoView({ behavior: 'smooth' });
+            }
+          });
+        });
+
+        // Section fade-in animation on scroll
+        const sections = document.querySelectorAll('section');
+        const observerOptions = {
+          root: null,
+          rootMargin: '0px',
+          threshold: 0.1
+        };
+
+        const sectionObserver = new IntersectionObserver((entries, observer) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('section-fade');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, observerOptions);
+
+        sections.forEach(section => {
+          sectionObserver.observe(section);
+        });
+
+        // Sticky navbar hide/show on scroll for mobile (optional, more complex)
+        let lastScrollY = 0;
+        const navbar = document.querySelector('nav');
+
+        window.addEventListener('scroll', () => {
+          if (window.innerWidth <= 768) { // Apply only on mobile
+            if (window.scrollY > lastScrollY && window.scrollY > navbar.offsetHeight) {
+              // Scrolling down and past navbar height
+              navbar.style.transform = 'translateY(-100%)';
+            } else {
+              // Scrolling up
+              navbar.style.transform = 'translateY(0)';
+            }
+            lastScrollY = window.scrollY;
+          } else {
+            navbar.style.transform = 'translateY(0)'; // Ensure navbar is visible on larger screens
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
