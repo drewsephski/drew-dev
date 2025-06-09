@@ -28,15 +28,74 @@
         --border: rgba(59, 130, 246, 0.3); /* Primary with transparency */
         --glass-bg: rgba(255, 255, 255, 0.08); /* More subtle glass background */
         --glass-border: rgba(255, 255, 255, 0.15); /* More distinct glass border */
+        --shadow-color: rgba(59, 130, 246, 0.25); /* Default shadow color for dark theme */
       }
 
+      /* Add new light theme variables */
+      .light-theme {
+        --primary: #3b82f6; /* Blue */
+        --primary-dark: #2563eb; /* Darker Blue */
+        --primary-light: #60a5fa; /* Lighter Blue */
+        --accent: #06b6d4; /* Cyan */
+        --accent-dark: #0891b2; /* Darker Cyan */
+        --accent-light: #22d3ee; /* Lighter Cyan */
+        --purple: #8b5cf6; /* Purple */
+        --purple-dark: #7c3aed; /* Darker Purple */
+        --purple-light: #a78bfa; /* Lighter Purple */
+        --text-primary: #1f2937;    /* Gray 800 - For primary text */
+        --text-secondary: #4b5563;  /* Gray 600 - For secondary text */
+        --bg-primary: #f3f4f6;      /* Gray 100 - Main background */
+        --bg-secondary: #e5e7eb;    /* Gray 200 - Slightly darker background elements */
+        --bg-card: rgba(255, 255, 255, 0.85); /* White with transparency for cards */
+        --border: rgba(59, 130, 246, 0.4); /* Primary with transparency for borders */
+        --glass-bg: rgba(255, 255, 255, 0.7); /* Lighter glass background */
+        --glass-border: rgba(0, 0, 0, 0.1); /* Subtle dark border for glass elements in light mode */
+        --shadow-color: rgba(0, 0, 0, 0.1); /* Softer shadow for light mode */
+      }
+
+      .btn-filter {
+        background-color: var(--glass-bg);
+        border: 1px solid var(--glass-border);
+        color: var(--text-secondary);
+        transition: all 0.3s ease;
+      }
+      .btn-filter:hover {
+        background-color: rgba(59, 130, 246, 0.2); /* Similar to tech-badge hover */
+        color: var(--text-primary);
+        transform: translateY(-2px);
+      }
+      .btn-filter.active {
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        color: var(--text-primary);
+        box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+      }
+
+      .project-item {
+        transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out, max-height 0.5s ease-in-out;
+        opacity: 1;
+        transform: scale(1);
+        max-height: 500px; /* Adjust as needed, should be larger than the card height */
+        overflow: hidden;
+      }
+      .project-item.hidden {
+        opacity: 0;
+        transform: scale(0.95);
+        max-height: 0;
+        margin-bottom: 0; /* Remove margin when hidden to avoid layout jumps */
+        padding-top: 0;
+        padding-bottom: 0;
+        border-width: 0; /* Hide border when hidden */
+      }
+
+      /* Modify body for theme transition */
       body {
         font-family: 'Inter', sans-serif;
         background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-primary) 100%);
         background-attachment: fixed;
         color: var(--text-primary);
         overflow-x: hidden;
-        line-height: 1.6; /* Improved line height for readability */
+        line-height: 1.6;
+        transition: background-color 0.5s ease, color 0.5s ease; /* Smooth transition for theme change */
       }
 
       h1, h2, h3, h4, h5, h6 {
@@ -70,16 +129,18 @@
         50% { transform: translateY(-10px); }
       }
 
+      /* Update card-hover and glass for theming */
       .card-hover {
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         border: 1px solid var(--border);
+        background-color: var(--bg-card); /* Ensure cards use theme variable */
       }
 
       .card-hover:hover {
         transform: translateY(-8px) scale(1.02);
-        box-shadow: 0 25px 50px -12px rgba(59, 130, 246, 0.25);
+        box-shadow: 0 25px 50px -12px var(--shadow-color, rgba(59, 130, 246, 0.25)); /* Use shadow variable */
         border-color: var(--primary);
-        background: var(--bg-card); /* Use variable for consistency */
+        /* background: var(--bg-card); /* Already set, hover might change opacity or specific layer */
       }
 
       .btn-primary {
@@ -115,21 +176,23 @@
         background: linear-gradient(135deg, var(--primary-light), var(--primary)); /* Slightly lighter on hover */
       }
 
+      /* Adjust tech badge for theming */
       .tech-badge {
-        background: rgba(59, 130, 246, 0.1);
-        border: 1px solid rgba(59, 130, 246, 0.3);
+        background: color-mix(in srgb, var(--primary) 15%, transparent); /* Use color-mix for dynamic opacity */
+        border: 1px solid color-mix(in srgb, var(--primary) 30%, transparent);
+        color: var(--text-secondary); /* Ensure text color adapts */
         transition: all 0.2s ease;
-        padding: 0.5rem 1rem; /* Ensure larger touch target */
+        padding: 0.5rem 1rem;
         min-width: 44px;
         min-height: 44px;
         display: inline-flex;
         align-items: center;
         justify-content: center;
       }
-
       .tech-badge:hover {
-        background: rgba(59, 130, 246, 0.2);
+        background: color-mix(in srgb, var(--primary) 25%, transparent);
         transform: scale(1.05);
+        color: var(--primary); /* Make text color primary on hover */
       }
 
       .pulse-ring {
@@ -170,10 +233,20 @@
       }
 
       .glass {
-        background: var(--glass-bg); /* Use new variable */
-        border: 1px solid var(--glass-border); /* Use new variable for distinction */
-        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); /* Added subtle shadow */
-        transition-duration: 300ms;
+        background: var(--glass-bg);
+        border: 1px solid var(--glass-border);
+        box-shadow: 0 8px 32px 0 var(--shadow-color, rgba(31, 38, 135, 0.37));
+        transition-duration: 300ms; /* Keep existing transition */
+        transition-property: background, border, box-shadow; /* Specify properties to transition */
+      }
+
+      /* Adjust navbar for theming */
+      nav {
+        /* background-color: var(--bg-primary); /* Ensure navbar uses theme variable */
+        /* Or use a more specific variable if navbar has unique bg in light/dark themes */
+        background: var(--glass-bg); /* Making navbar glassmorphic */
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--glass-border);
       }
 
       @media (max-width: 768px) {
@@ -293,6 +366,18 @@
           color: var(--primary-light);
         }
       }
+      .light-theme .mobile-menu-overlay { /* Specific override for light theme mobile menu */
+        background-color: rgba(243, 244, 246, 0.95); /* Lighter overlay */
+      }
+      .light-theme .mobile-menu-overlay a {
+        color: var(--text-primary);
+      }
+      .light-theme .mobile-menu-overlay a:hover {
+        color: var(--primary);
+      }
+      .light-theme .close-btn {
+        color: var(--text-primary);
+      }
 
       /* Default hide for hamburger menu and mobile overlay */
       .hamburger-menu, .mobile-menu-overlay {
@@ -346,17 +431,85 @@
     .blog-modal-close:hover {
         color: var(--text-primary); /* hover:text-white */
     }
+
+    /* Project Modal Theming */
+    #projectModal .glass, .blog-modal-content { /* Targeting modals */
+        background-color: var(--bg-secondary); /* Explicitly use a theme variable */
+        color: var(--text-primary);
+    }
+    #projectModal .glass {
+        border: 1px solid var(--glass-border);
+    }
+
+    /* Contact Form Theming */
+    #contactForm input, #contactForm textarea {
+        background-color: var(--bg-secondary); /* Use a theme variable */
+        color: var(--text-primary);
+        border: 1px solid var(--glass-border); /* Use a theme variable */
+    }
+    #contactForm input:focus, #contactForm textarea:focus {
+        border-color: var(--primary); /* Keep focus color */
+    }
+
+    /* Ensure text colors in various sections adapt */
+    .gradient-text { /* Keep gradient as is, but ensure surrounding text adapts */ }
+    a, .text-gray-300, .text-gray-400, .text-gray-500 {
+        color: var(--text-secondary); /* Default link/secondary text */
+        transition: color 0.3s ease;
+    }
+    a:hover, .hover\:text-white:hover {
+        color: var(--primary); /* Hover color */
+    }
+    .navbar-links a {
+        color: var(--text-secondary);
+    }
+    .navbar-links a:hover {
+        color: var(--primary);
+    }
+    .mobile-menu-overlay a {
+        color: var(--text-primary); /* In light theme, this will be dark */
+    }
+
+
+    /* Ensure button text is readable */
+    .btn-primary {
+        color: white; /* Explicitly set for contrast on gradient */
+    }
+    .btn-secondary {
+        color: var(--primary);
+        border-color: var(--primary);
+    }
+    .btn-secondary:hover {
+        background-color: color-mix(in srgb, var(--primary) 20%, transparent);
+        color: var(--primary-dark);
+    }
+    .btn-blog-details { /* Example, ensure these adapt */
+        color: var(--accent);
+        border-color: var(--accent);
+    }
+    .btn-blog-details:hover {
+        background-color: color-mix(in srgb, var(--accent) 20%, transparent);
+        color: var(--accent-dark);
+    }
+
+    /* Footer text color */
+    footer {
+        color: var(--text-secondary);
+    }
     </style>
   </head>
   <body>
     <!-- Navbar -->
-    <nav class="fixed top-0 left-0 right-0 bg-gray-900 bg-opacity-80 backdrop-filter backdrop-blur-lg z-50 shadow-lg">
+    <nav class="fixed top-0 left-0 right-0 bg-opacity-80 z-50 shadow-lg">
       <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
         <a href="#" class="text-2xl font-bold gradient-text">drew.dev</a>
         <div class="hidden md:flex space-x-6 navbar-links">
           <a href="#hero" class="text-gray-300 hover:text-white transition duration-300">Home</a>
           <a href="#projects" class="text-gray-300 hover:text-white transition duration-300">Projects</a>
           <a href="#contact" class="text-gray-300 hover:text-white transition duration-300">Contact</a>
+          <button id="theme-toggle" class="text-gray-300 hover:text-white transition duration-300 focus:outline-none">
+            <i class="fas fa-sun text-xl"></i> <!-- Default to sun icon, assuming dark mode is default -->
+          </button>
         </div>
         <div class="md:hidden">
           <button id="hamburger-icon" class="text-gray-300 hover:text-white focus:outline-none">
@@ -372,6 +525,9 @@
       <a href="#hero" class="mobile-menu-link" data-section="hero">Home</a>
       <a href="#projects" class="mobile-menu-link" data-section="projects">Projects</a>
       <a href="#contact" class="mobile-menu-link" data-section="contact">Contact</a>
+      <button id="theme-toggle-mobile" class="text-gray-300 hover:text-white transition duration-300 focus:outline-none mt-4">
+        <i class="fas fa-sun text-2xl"></i>
+      </button>
     </div>
 
     <!-- Hero Section -->
@@ -406,10 +562,16 @@
     <section id="projects" class="py-20 px-4">
       <div class="max-w-6xl mx-auto">
         <h2 class="text-4xl font-bold text-center mb-16 gradient-text">Featured Projects</h2>
-        
+        <div class="flex justify-center flex-wrap gap-4 mb-10" id="project-filters">
+          <button class="btn-filter active px-6 py-2 rounded-full text-sm font-medium" data-filter="all">All</button>
+          <button class="btn-filter px-6 py-2 rounded-full text-sm font-medium" data-filter="ai">AI</button>
+          <button class="btn-filter px-6 py-2 rounded-full text-sm font-medium" data-filter="web">Web Development</button>
+          <button class="btn-filter px-6 py-2 rounded-full text-sm font-medium" data-filter="portfolio">Portfolio</button>
+          <button class="btn-filter px-6 py-2 rounded-full text-sm font-medium" data-filter="blog">Blog Tech</button>
+        </div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <!-- Portfolio Card -->
-          <div class="card-hover bg-gray-800 rounded-2xl p-6 glass">
+          <div class="card-hover bg-gray-800 rounded-2xl p-6 glass project-item" data-category="portfolio web">
             <div class="h-48 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl mb-6 flex items-center justify-center">
              <img width="96" height="96" src="https://img.icons8.com/arcade/64/web-design.png" alt="web-design"/>
             </div>
@@ -427,7 +589,7 @@
           </div>
 
           <!-- Gemini AI Chatbot Card -->
-          <div class="card-hover bg-gray-800 rounded-2xl p-6 glass">
+          <div class="card-hover bg-gray-800 rounded-2xl p-6 glass project-item" data-category="ai web">
             <div class="h-48 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl mb-6 flex items-center justify-center">
               <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 48 48">
 <linearGradient id="ZsloVEqqSeKFAYphLYdPya_ij6f4GUUwLE8_gr1" x1=".029" x2="48.667" y1="40.428" y2="9.662" gradientUnits="userSpaceOnUse"><stop offset=".002" stop-color="#9c55d4"></stop><stop offset=".003" stop-color="#ff61d3"></stop><stop offset=".075" stop-color="#f760d6"></stop><stop offset=".19" stop-color="#e05cde"></stop><stop offset=".333" stop-color="#ba56ec"></stop><stop offset=".497" stop-color="#874eff"></stop><stop offset=".499" stop-color="#864eff"></stop><stop offset=".506" stop-color="#8451ff"></stop><stop offset=".678" stop-color="#4f90ff"></stop><stop offset=".824" stop-color="#28bfff"></stop><stop offset=".936" stop-color="#10dbff"></stop><stop offset="1" stop-color="#07e6ff"></stop></linearGradient><path fill="url(#ZsloVEqqSeKFAYphLYdPya_ij6f4GUUwLE8_gr1)" d="M46.332,23.147l-2.016-0.999C42.852,16.838,39.115,11.762,34,8.762V7.781	c0-0.459-0.312-0.859-0.757-0.97L27.94,5.485C26.652,5.163,25.328,5,24,5s-2.652,0.163-3.94,0.485l-5.302,1.326	C14.312,6.922,14,7.322,14,7.781v0.982c-5.115,2.999-8.852,8.076-10.316,13.385l-2.016,0.999C0.646,23.653,0,24.695,0,25.835v1.969	c0,0.222,0.025,0.444,0.074,0.66l1.222,5.416C1.708,35.705,3.328,37,5.198,37h1.711c3.617,3.796,9.557,6,17.092,6	s13.475-2.204,17.092-6h1.711c1.87,0,3.49-1.295,3.902-3.119l1.222-5.416C47.975,28.248,48,28.026,48,27.804v-1.969	C48,24.695,47.354,23.653,46.332,23.147z M24,38c-3.753,0-16-0.793-16-11c0-7.399,6.989-16,16-16s16,8.601,16,16	C40,37.207,27.753,38,24,38z"></path><path d="M24,10c-9.574,0-17,9.138-17,17c0,11.135,13.012,12,17,12s17-0.865,17-12C41,19.138,33.574,10,24,10z" opacity=".05"></path><path d="M24,10.5c-9.292,0-16.5,8.87-16.5,16.5c0,10.671,12.629,11.5,16.5,11.5S40.5,37.671,40.5,27	C40.5,19.37,33.292,10.5,24,10.5z" opacity=".07"></path><path fill="#fff" d="M24,11c-9.011,0-16,8.601-16,16c0,10.207,12.247,11,16,11s16-0.793,16-11C40,19.601,33.011,11,24,11 z"></path><path d="M24,34c-3.281,0-6.193-1.716-7.418-4.372l2.724-1.257C20.031,29.944,21.917,31,24,31c2.126,0,4.026-1.085,4.727-2.701 l2.752,1.194C30.31,32.189,27.304,34,24,34z"></path>
@@ -447,7 +609,7 @@
           </div>
 
           <!-- Blog Card -->
-          <div class="card-hover bg-gray-800 rounded-2xl p-6 glass">
+          <div class="card-hover bg-gray-800 rounded-2xl p-6 glass project-item" data-category="blog web">
             <div class="h-48 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl mb-6 flex items-center justify-center">
             <img width="96" height="96" src="https://img.icons8.com/nolan/96/backend-development.png" alt="backend-development"/>
             </div>
@@ -474,62 +636,90 @@
         
         <div class="grid lg:grid-cols-2 gap-8">
           <!-- Blog Post 1 -->
-          <article class="card-hover bg-gray-800 rounded-2xl overflow-hidden glass">
+          <article class="card-hover bg-gray-800 rounded-2xl overflow-hidden glass" data-blog-id="ai-web-development">
             <div class="h-48 bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center">
               <h3 class="text-2xl font-bold text-white text-center px-6">The Future of AI in Web Development</h3>
             </div>
             <div class="p-6">
-              <div class="flex items-center gap-4 mb-4">
-                <span class="text-sm text-gray-400">March 2025</span>
-                <span class="bg-blue-900 text-blue-200 px-3 py-1 rounded-full text-xs">AI</span>
+              <div class="flex items-center justify-between text-sm text-gray-400 mb-3">
+                <span class="post-date">March 2025</span>
+                <div class="flex items-center">
+                  <i class="post-category-icon fas fa-brain mr-2"></i>
+                  <span class="post-category bg-blue-900 text-blue-200 px-3 py-1 rounded-full text-xs">AI</span>
+                </div>
               </div>
-              <p class="text-gray-300 mb-4">Exploring how GPT, Stable Diffusion, and other AI tools are revolutionizing the way we build and design websites. From automated code generation to intelligent UI suggestions.</p>
-              <button class="btn-blog-details text-blue-400 hover:text-blue-300 font-medium border-blue-500 border-2 hover:bg-blue-600/30 transition-all duration-300 rounded-2xl px-2 py-1" data-blog="ai-web-development">Read More →</button>
+              <p class="text-gray-300 mb-4 post-description">Exploring how GPT, Stable Diffusion, and other AI tools are revolutionizing the way we build and design websites. From automated code generation to intelligent UI suggestions.</p>
+              <div class="flex items-center justify-between text-xs text-gray-500 mt-4">
+                <span class="reading-time"></span>
+                <span class="views"><i class="fas fa-eye mr-1"></i><span class="view-count"></span></span>
+              </div>
+              <button class="btn-blog-details text-blue-400 hover:text-blue-300 font-medium border-blue-500 border-2 hover:bg-blue-600/30 transition-all duration-300 rounded-2xl px-2 py-1 mt-4 w-full sm:w-auto" data-blog="ai-web-development">Read More →</button>
             </div>
           </article>
 
           <!-- Blog Post 2 -->
-          <article class="card-hover bg-gray-800 rounded-2xl overflow-hidden glass">
+          <article class="card-hover bg-gray-800 rounded-2xl overflow-hidden glass" data-blog-id="no-code-revolution">
             <div class="h-48 bg-gradient-to-br from-cyan-600 to-teal-700 flex items-center justify-center">
               <h3 class="text-2xl font-bold text-white text-center px-6">No-Code Revolution: Building Without Barriers</h3>
             </div>
             <div class="p-6">
-              <div class="flex items-center gap-4 mb-4">
-                <span class="text-sm text-gray-400">February 2025</span>
-                <span class="bg-cyan-900 text-cyan-200 px-3 py-1 rounded-full text-xs">No-Code</span>
+              <div class="flex items-center justify-between text-sm text-gray-400 mb-3">
+                <span class="post-date">February 2025</span>
+                <div class="flex items-center">
+                  <i class="post-category-icon fas fa-magic mr-2"></i>
+                  <span class="post-category bg-cyan-900 text-cyan-200 px-3 py-1 rounded-full text-xs">No-Code</span>
+                </div>
               </div>
-              <p class="text-gray-300 mb-4">How no-code and low-code platforms are democratizing web development, enabling creators to build complex applications without traditional programming barriers.</p>
-              <button class="btn-blog-details text-cyan-400 hover:text-cyan-300 font-medium border-cyan-500 border-2 hover:bg-cyan-600/30 transition-all duration-300 rounded-2xl px-2 py-1" data-blog="no-code-revolution">Read More →</button>
+              <p class="text-gray-300 mb-4 post-description">How no-code and low-code platforms are democratizing web development, enabling creators to build complex applications without traditional programming barriers.</p>
+              <div class="flex items-center justify-between text-xs text-gray-500 mt-4">
+                <span class="reading-time"></span>
+                <span class="views"><i class="fas fa-eye mr-1"></i><span class="view-count"></span></span>
+              </div>
+              <button class="btn-blog-details text-cyan-400 hover:text-cyan-300 font-medium border-cyan-500 border-2 hover:bg-cyan-600/30 transition-all duration-300 rounded-2xl px-2 py-1 mt-4 w-full sm:w-auto" data-blog="no-code-revolution">Read More →</button>
             </div>
           </article>
 
           <!-- Blog Post 3 -->
-          <article class="card-hover bg-gray-800 rounded-2xl overflow-hidden glass">
+          <article class="card-hover bg-gray-800 rounded-2xl overflow-hidden glass" data-blog-id="modern-ui-ux">
             <div class="h-48 bg-gradient-to-br from-purple-600 to-pink-700 flex items-center justify-center">
               <h3 class="text-2xl font-bold text-white text-center px-6">Modern UI/UX: Designing for Tomorrow</h3>
             </div>
             <div class="p-6">
-              <div class="flex items-center gap-4 mb-4">
-                <span class="text-sm text-gray-400">January 2025</span>
-                <span class="bg-purple-900 text-purple-200 px-3 py-1 rounded-full text-xs">Design</span>
+              <div class="flex items-center justify-between text-sm text-gray-400 mb-3">
+                <span class="post-date">January 2025</span>
+                <div class="flex items-center">
+                  <i class="post-category-icon fas fa-palette mr-2"></i>
+                  <span class="post-category bg-purple-900 text-purple-200 px-3 py-1 rounded-full text-xs">Design</span>
+                </div>
               </div>
-              <p class="text-gray-300 mb-4">Analyzing current design trends including glassmorphism, micro-interactions, and AI-assisted design workflows that are shaping the future of user interfaces.</p>
-              <button class="btn-blog-details text-purple-400 hover:text-purple-300 font-medium border-purple-500 border-2 hover:bg-purple-600/30 transition-all duration-300 rounded-2xl px-2 py-1" data-blog="modern-ui-ux">Read More →</button>
+              <p class="text-gray-300 mb-4 post-description">Analyzing current design trends including glassmorphism, micro-interactions, and AI-assisted design workflows that are shaping the future of user interfaces.</p>
+              <div class="flex items-center justify-between text-xs text-gray-500 mt-4">
+                <span class="reading-time"></span>
+                <span class="views"><i class="fas fa-eye mr-1"></i><span class="view-count"></span></span>
+              </div>
+              <button class="btn-blog-details text-purple-400 hover:text-purple-300 font-medium border-purple-500 border-2 hover:bg-purple-600/30 transition-all duration-300 rounded-2xl px-2 py-1 mt-4 w-full sm:w-auto" data-blog="modern-ui-ux">Read More →</button>
             </div>
           </article>
 
           <!-- Blog Post 4 -->
-          <article class="card-hover bg-gray-800 rounded-2xl overflow-hidden glass">
+          <article class="card-hover bg-gray-800 rounded-2xl overflow-hidden glass" data-blog-id="performance-optimization">
             <div class="h-48 bg-gradient-to-br from-green-600 to-emerald-700 flex items-center justify-center">
               <h3 class="text-2xl font-bold text-white text-center px-6">Performance Optimization in the AI Era</h3>
             </div>
             <div class="p-6">
-              <div class="flex items-center gap-4 mb-4">
-                <span class="text-sm text-gray-400">December 2024</span>
-                <span class="bg-green-900 text-green-200 px-3 py-1 rounded-full text-xs">Performance</span>
+              <div class="flex items-center justify-between text-sm text-gray-400 mb-3">
+                <span class="post-date">December 2024</span>
+                <div class="flex items-center">
+                  <i class="post-category-icon fas fa-tachometer-alt mr-2"></i>
+                  <span class="post-category bg-green-900 text-green-200 px-3 py-1 rounded-full text-xs">Performance</span>
+                </div>
               </div>
-              <p class="text-gray-300 mb-4">Strategies for maintaining lightning-fast websites while integrating AI features, image generation, and complex interactive elements without sacrificing user experience.</p>
-              <button class="btn-blog-details text-green-400 hover:text-green-300 font-medium border-green-500 border-2 hover:bg-green-600/30 transition-all duration-300 rounded-2xl px-2 py-1" data-blog="performance-optimization">Read More →</button>
+              <p class="text-gray-300 mb-4 post-description">Strategies for maintaining lightning-fast websites while integrating AI features, image generation, and complex interactive elements without sacrificing user experience.</p>
+              <div class="flex items-center justify-between text-xs text-gray-500 mt-4">
+                <span class="reading-time"></span>
+                <span class="views"><i class="fas fa-eye mr-1"></i><span class="view-count"></span></span>
+              </div>
+              <button class="btn-blog-details text-green-400 hover:text-green-300 font-medium border-green-500 border-2 hover:bg-green-600/30 transition-all duration-300 rounded-2xl px-2 py-1 mt-4 w-full sm:w-auto" data-blog="performance-optimization">Read More →</button>
             </div>
           </article>
         </div>
@@ -726,7 +916,9 @@
                     <p>Artificial intelligence is rapidly transforming the landscape of web development. Tools like GPT-4 are enabling automated code generation, intelligent debugging, and even entire website creation from natural language prompts. Stable Diffusion and other generative AI models are revolutionizing UI/UX design by creating stunning visuals and design assets on demand.</p>
                     <p>This shift means developers can focus more on complex logic and innovative solutions, while repetitive tasks are handled by AI. The future promises highly personalized user experiences, dynamic content generation, and significantly accelerated development cycles.</p>
                     <p>Embracing AI in your workflow is no longer optional; it's a necessity for staying competitive and unlocking new levels of creativity and efficiency.</p>
-                `
+                `,
+                views: Math.floor(Math.random() * 2000) + 500,
+                categoryIcon: 'fas fa-brain'
             },
             'no-code-revolution': {
                 title: 'No-Code Revolution: Building Without Barriers',
@@ -734,7 +926,9 @@
                     <p>No-code and low-code platforms are democratizing web development, empowering individuals and small businesses to create sophisticated applications without writing a single line of code. Tools like Webflow, Bubble, and Adalo provide intuitive visual interfaces to build everything from e-commerce sites to complex internal tools.</p>
                     <p>This revolution is not about replacing developers, but about expanding the pool of creators. It allows designers, entrepreneurs, and domain experts to rapidly prototype and launch ideas, fostering innovation and reducing time-to-market. For developers, it means focusing on custom integrations, complex logic, and extending the capabilities of these platforms.</p>
                     <p>The synergy between no-code and traditional development is creating a more inclusive and efficient digital ecosystem.</p>
-                `
+                `,
+                views: Math.floor(Math.random() * 1500) + 300,
+                categoryIcon: 'fas fa-magic'
             },
             'modern-ui-ux': {
                 title: 'Modern UI/UX: Designing for Tomorrow',
@@ -742,7 +936,9 @@
                     <p>The modern web demands interfaces that are not just functional, but also aesthetically pleasing and intuitively usable. Current UI/UX trends are heavily influenced by principles like glassmorphism, which uses frosted glass effects to create depth, and subtle micro-interactions that provide delightful feedback to users.</p>
                     <p>AI is also playing a crucial role in design, assisting with user research, A/B testing, and even generating design variations. The focus is on creating immersive, accessible, and highly responsive experiences across all devices. Designers are increasingly leveraging animation, dark modes, and personalized content to engage users more deeply.</p>
                     <p>Staying ahead in UI/UX means constantly adapting to new technologies and understanding evolving user expectations.</p>
-                `
+                `,
+                views: Math.floor(Math.random() * 1800) + 400,
+                categoryIcon: 'fas fa-palette'
             },
             'performance-optimization': {
                 title: 'Performance Optimization in the AI Era',
@@ -750,7 +946,9 @@
                     <p>As web applications become more complex with AI integrations, rich media, and interactive elements, performance optimization becomes paramount. Slow loading times and unresponsive interfaces can severely impact user experience and SEO rankings.</p>
                     <p>Strategies include optimizing image and video delivery, lazy loading content, efficient data fetching (especially for AI model inferences), and leveraging modern web technologies like WebAssembly and service workers. Server-side rendering (SSR) and static site generation (SSG) are also critical for initial load performance.</p>
                     <p>A fast website is a user-friendly website, and in the AI era, it's also a competitive advantage.</p>
-                `
+                `,
+                views: Math.floor(Math.random() * 1200) + 200,
+                categoryIcon: 'fas fa-tachometer-alt'
             }
         };
 
@@ -774,6 +972,81 @@
           if (e.target === blogPostModal) {
             blogPostModal.classList.remove('open');
           }
+        });
+
+        // Function to calculate reading time
+        function calculateReadingTime(htmlContent) {
+          const tempDiv = document.createElement('div');
+          tempDiv.innerHTML = htmlContent;
+          const textContent = tempDiv.textContent || tempDiv.innerText || "";
+          const wordsPerMinute = 200; // Average reading speed
+          const words = textContent.trim().split(/\s+/).length;
+          const minutes = Math.ceil(words / wordsPerMinute);
+          return `${minutes} min read`;
+        }
+
+        // Populate blog card enhancements
+        document.querySelectorAll('article[data-blog-id]').forEach(card => {
+          const blogId = card.dataset.blogId;
+          const postData = blogPostsData[blogId];
+
+          if (postData) {
+            // Reading Time
+            const readingTimeEl = card.querySelector('.reading-time');
+            if (readingTimeEl) {
+              readingTimeEl.textContent = calculateReadingTime(postData.content);
+            }
+
+            // View Count
+            const viewCountEl = card.querySelector('.view-count');
+            if (viewCountEl && postData.views) {
+              viewCountEl.textContent = postData.views.toLocaleString(); // Format number
+            }
+
+            // Category Icon
+            const categoryIconEl = card.querySelector('.post-category-icon');
+            if (categoryIconEl && postData.categoryIcon) {
+                categoryIconEl.className = `post-category-icon ${postData.categoryIcon} mr-2`; // Apply icon class
+            }
+
+            // Update category text if needed (assuming it's static in HTML but could be dynamic)
+            // const categoryTextEl = card.querySelector('.post-category');
+            // if (categoryTextEl && postData.category) { // Assuming you add 'category' to blogPostsData
+            //    categoryTextEl.textContent = postData.category;
+            // }
+
+            // Update description (if you want to shorten it from the main content for preview)
+            // const descriptionEl = card.querySelector('.post-description');
+            // if (descriptionEl && postData.content) {
+            //     const tempDiv = document.createElement('div');
+            //     tempDiv.innerHTML = postData.content;
+            //     const textContent = tempDiv.textContent || tempDiv.innerText || "";
+            //     descriptionEl.textContent = textContent.substring(0, 100) + "..."; // Example: first 100 chars
+            // }
+          }
+        });
+
+        // Project Filtering Logic
+        const filterButtons = document.querySelectorAll('#project-filters .btn-filter');
+        const projectItems = document.querySelectorAll('.project-item');
+
+        filterButtons.forEach(button => {
+          button.addEventListener('click', () => {
+            // Update active button state
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+
+            const filterValue = button.dataset.filter;
+
+            projectItems.forEach(item => {
+              const itemCategories = item.dataset.category ? item.dataset.category.split(' ') : [];
+              if (filterValue === 'all' || itemCategories.includes(filterValue)) {
+                item.classList.remove('hidden');
+              } else {
+                item.classList.add('hidden');
+              }
+            });
+          });
         });
 
         // Contact Form Submission (Example - replace with actual backend integration)
@@ -801,6 +1074,47 @@
             formStatus.className = 'text-center mt-6 text-red-400';
           }
         });
+
+        // Theme Toggle Logic
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeToggleMobileBtn = document.getElementById('theme-toggle-mobile');
+        const body = document.body;
+        const sunIconClass = 'fa-sun';
+        const moonIconClass = 'fa-moon';
+
+        function applyTheme(theme) {
+          if (theme === 'light') {
+            body.classList.add('light-theme');
+            if (themeToggleBtn) themeToggleBtn.querySelector('i').classList.replace(sunIconClass, moonIconClass);
+            if (themeToggleMobileBtn) themeToggleMobileBtn.querySelector('i').classList.replace(sunIconClass, moonIconClass);
+          } else {
+            body.classList.remove('light-theme');
+            if (themeToggleBtn) themeToggleBtn.querySelector('i').classList.replace(moonIconClass, sunIconClass);
+            if (themeToggleMobileBtn) themeToggleMobileBtn.querySelector('i').classList.replace(moonIconClass, sunIconClass);
+          }
+        }
+
+        function toggleTheme() {
+          const currentTheme = body.classList.contains('light-theme') ? 'light' : 'dark';
+          const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+          localStorage.setItem('theme', newTheme);
+          applyTheme(newTheme);
+        }
+
+        if (themeToggleBtn) {
+            themeToggleBtn.addEventListener('click', toggleTheme);
+        }
+        if (themeToggleMobileBtn) {
+            themeToggleMobileBtn.addEventListener('click', () => {
+                toggleTheme();
+                // Optionally close mobile menu after theme toggle
+                // mobileMenu.classList.remove('open');
+            });
+        }
+
+        // Apply saved theme on initial load
+        const savedTheme = localStorage.getItem('theme') || 'dark'; // Default to dark
+        applyTheme(savedTheme);
 
         // Section fade-in animation on scroll
         const sections = document.querySelectorAll('section');
