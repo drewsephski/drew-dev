@@ -271,6 +271,7 @@
         .mobile-menu-overlay.open {
           opacity: 1;
           visibility: visible;
+          display: flex; /* Ensure it displays as flex when open */
         }
 
         .mobile-menu-overlay .close-btn {
@@ -804,32 +805,6 @@
           }
         });
 
-        // Hamburger menu and mobile menu logic (re-added for clarity, though already present)
-        const hamburgerIconMobile = document.getElementById('hamburger-icon');
-        const mobileMenuMobile = document.getElementById('mobile-menu');
-        const mobileMenuCloseBtnMobile = mobileMenuMobile.querySelector('.close-btn');
-        const mobileMenuLinksMobile = mobileMenuMobile.querySelectorAll('.mobile-menu-link');
-
-        hamburgerIconMobile.addEventListener('click', () => {
-          mobileMenuMobile.classList.add('open');
-        });
-
-        mobileMenuCloseBtnMobile.addEventListener('click', () => {
-          mobileMenuMobile.classList.remove('open');
-        });
-
-        mobileMenuLinksMobile.forEach(link => {
-          link.addEventListener('click', () => {
-            mobileMenuMobile.classList.remove('open');
-            // Smooth scroll to section
-            const targetSectionId = link.dataset.section;
-            const targetSection = document.getElementById(targetSectionId);
-            if (targetSection) {
-              targetSection.scrollIntoView({ behavior: 'smooth' });
-            }
-          });
-        });
-
         // Section fade-in animation on scroll
         const sections = document.querySelectorAll('section');
         const observerOptions = {
@@ -871,5 +846,32 @@
         });
       });
     </script>
-  </body>
+  <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const hamburgerIcon = document.getElementById('hamburger-icon');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const closeBtn = mobileMenu.querySelector('.close-btn');
+            const mobileMenuLinks = mobileMenu.querySelectorAll('.mobile-menu-link');
+
+            hamburgerIcon.addEventListener('click', () => {
+                mobileMenu.classList.add('open');
+            });
+
+            closeBtn.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+            });
+
+            mobileMenuLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.remove('open');
+                    const targetSectionId = link.dataset.section;
+                    const targetSection = document.getElementById(targetSectionId);
+                    if (targetSection) {
+                        targetSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+        });
+    </script>
+    </body>
 </html>
