@@ -299,6 +299,8 @@
         display: none;
       }
 
+    /* .pulse-ring and @keyframes pulse-ring are removed as per subtask instructions */
+
     .blog-modal {
         position: fixed;
         inset: 0;
@@ -375,15 +377,10 @@
     </div>
 
     <!-- Hero Section -->
-    <section id="hero" class="min-h-screen flex items-center justify-center px-4 relative pt-20"> <!-- Added pt-20 for navbar clearance -->
-      <!-- Animated background elements -->
-      <div class="absolute inset-0 overflow-hidden">
-        <div class="absolute top-1/4 left-1/4 w-2 h-2 bg-blue-400 rounded-full pulse-ring"></div>
-        <div class="absolute top-3/4 right-1/3 w-2 h-2 bg-cyan-400 rounded-full pulse-ring" style="animation-delay: 1s;"></div>
-        <div class="absolute bottom-1/4 left-1/2 w-2 h-2 bg-purple-400 rounded-full pulse-ring" style="animation-delay: 2s;"></div>
-      </div>
+    <section id="hero" class="min-h-screen flex items-center justify-center px-4 relative pt-20">
+      <div id="particles-js" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 0;"></div>
       
-      <div class="text-center max-w-4xl mx-auto section-fade">
+      <div class="text-center max-w-4xl mx-auto section-fade" style="position: relative; z-index: 1;">
         <h1 class="text-6xl sm:text-7xl md:text-8xl font-bold mb-6 gradient-text floating">
           drew.dev
         </h1>
@@ -406,7 +403,7 @@
     <section id="projects" class="py-20 px-4">
       <div class="max-w-6xl mx-auto">
         <h2 class="text-4xl font-bold text-center mb-16 gradient-text">Featured Projects</h2>
-        
+
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <!-- Portfolio Card -->
           <div class="card-hover bg-gray-800 rounded-2xl p-6 glass">
@@ -869,6 +866,90 @@
                 });
             });
         });
+
+        // Particles.js Initialization
+        if (typeof particlesJS !== 'undefined') {
+          particlesJS('particles-js', {
+            "particles": {
+              "number": {
+                "value": 80,
+                "density": {
+                  "enable": true,
+                  "value_area": 800
+                }
+              },
+              "color": {
+                "value": "#60a5fa"
+              },
+              "shape": {
+                "type": "circle",
+              },
+              "opacity": {
+                "value": 0.5,
+                "random": false,
+                "anim": {
+                  "enable": false
+                }
+              },
+              "size": {
+                "value": 3,
+                "random": true,
+                "anim": {
+                  "enable": false
+                }
+              },
+              "line_linked": {
+                "enable": true,
+                "distance": 150,
+                "color": "#60a5fa",
+                "opacity": 0.4,
+                "width": 1
+              },
+              "move": {
+                "enable": true,
+                "speed": 2,
+                "direction": "none",
+                "random": false,
+                "straight": false,
+                "out_mode": "out",
+                "bounce": false,
+                "attract": {
+                  "enable": false
+                }
+              }
+            },
+            "interactivity": {
+              "detect_on": "canvas",
+              "events": {
+                "onhover": {
+                  "enable": true,
+                  "mode": "repel"
+                },
+                "onclick": {
+                  "enable": true,
+                  "mode": "push"
+                },
+                "resize": true
+              },
+              "modes": {
+                "repel": {
+                  "distance": 100,
+                  "duration": 0.4
+                },
+                "push": {
+                  "particles_nb": 4
+                }
+              }
+            },
+            "retina_detect": true
+          });
+        } else {
+          console.error("particlesJS not loaded");
+        }
+        // End Particles.js Initialization
+
+      });
     </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
     </body>
 </html>
