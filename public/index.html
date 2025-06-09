@@ -6,6 +6,7 @@
     <title>Prisma Tailwind App</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 </head>
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
@@ -351,6 +352,7 @@
     </style>
   </head>
   <body>
+    <div id="particles-js" style="position:absolute; width:100%; height:100%; z-index:-1;"></div>
     <!-- Navbar -->
     <nav class="fixed top-0 left-0 right-0 bg-gray-900 bg-opacity-80 backdrop-filter backdrop-blur-lg z-50 shadow-lg">
       <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
@@ -378,7 +380,7 @@
 
     <!-- Hero Section -->
     <section id="hero" class="min-h-screen flex items-center justify-center px-4 relative pt-20">
-      <div id="particles-js" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 0;"></div>
+
       
       <div class="text-center max-w-4xl mx-auto section-fade" style="position: relative; z-index: 1;">
         <h1 class="text-6xl sm:text-7xl md:text-8xl font-bold mb-6 gradient-text floating">
@@ -867,7 +869,7 @@
             });
         });
 
-        // Particles.js Initialization
+        
         if (typeof particlesJS !== 'undefined') {
           particlesJS('particles-js', {
             "particles": {
@@ -950,6 +952,11 @@
 
       });
     </script>
+<<<<<<< HEAD
   <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
     </body>
+=======
+    <script src="js/particles-config.js"></script>
+</body>
+>>>>>>> 9128ffe (Fix: Corrected script tag closing for JSX linter compatibility in public/index.html)
 </html>
