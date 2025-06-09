@@ -869,7 +869,7 @@
 
         // Particles.js Initialization
         if (typeof particlesJS !== 'undefined') {
-          particlesJS('particles-js', {
+          let particleSettings = {
             "particles": {
               "number": {
                 "value": 80,
@@ -879,29 +879,23 @@
                 }
               },
               "color": {
-                "value": "#60a5fa"
+                "value": "#60a5fa" // Corresponds to --primary-light
               },
               "shape": {
-                "type": "circle",
+                "type": "circle"
               },
               "opacity": {
                 "value": 0.5,
-                "random": false,
-                "anim": {
-                  "enable": false
-                }
+                "random": false
               },
               "size": {
                 "value": 3,
-                "random": true,
-                "anim": {
-                  "enable": false
-                }
+                "random": true
               },
               "line_linked": {
                 "enable": true,
                 "distance": 150,
-                "color": "#60a5fa",
+                "color": "#60a5fa", // Corresponds to --primary-light
                 "opacity": 0.4,
                 "width": 1
               },
@@ -912,10 +906,7 @@
                 "random": false,
                 "straight": false,
                 "out_mode": "out",
-                "bounce": false,
-                "attract": {
-                  "enable": false
-                }
+                "bounce": false
               }
             },
             "interactivity": {
@@ -942,7 +933,24 @@
               }
             },
             "retina_detect": true
-          });
+          };
+
+          // Adjust for mobile
+          if (window.innerWidth < 768) {
+            particleSettings.particles.number.value = 30; // Reduce particle count
+            particleSettings.particles.line_linked.distance = 100; // Reduce line distance
+            // Keep hover repel for tablets, or disable if preferred:
+            // particleSettings.interactivity.events.onhover.enable = false;
+          }
+
+          if (window.innerWidth < 480) { // Stricter settings for small mobile
+            particleSettings.particles.number.value = 20; // Further reduce particle count
+            particleSettings.particles.line_linked.enable = false; // Disable lines entirely
+            particleSettings.interactivity.events.onhover.enable = false; // Disable hover repel
+          }
+
+          particlesJS('particles-js', particleSettings);
+
         } else {
           console.error("particlesJS not loaded");
         }
